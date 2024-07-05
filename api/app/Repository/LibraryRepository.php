@@ -15,9 +15,17 @@ class LibraryRepository implements LibraryRepositoryInterface
         //
     }
 
-    public function all()
+    public function all($searchTerm)
     {
-        return Book::all();
+        return Book::where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('author', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('publication_year', 'like', '%' . $searchTerm . '%')
+                    ->get();
+    }
+
+    public function count()
+    {
+        return Book::count();
     }
 
     public function find(int $id)

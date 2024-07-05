@@ -1,23 +1,28 @@
 import api from "./api/Library";
 
 class LibraryDataService {
-  getAll() {
-    return api.get("/book");
+  getAll(valueSearch = "") {
+    let search = valueSearch.length > 0 ? "/?search=" + valueSearch : "";
+    return api.get("/library" + search);
   }
 
   create(data = []) {
-    return api.post("/book", data);
+    return api.post("/library", data);
   }
 
   delete(bookId = 0) {
-    return api.delete(`/book/${bookId}`);
+    return api.delete(`/library/${bookId}`);
   }
-  update(dataUpdate = 0, bookId = 0) {
-    return api.put(`/book/${bookId}`, dataUpdate);
+  updateBook(dataUpdate, bookId = 0) {
+    return api.post(`/library/${bookId}`, dataUpdate);
   }
 
-  find(bookId = 0) {
-    return api.get(`/book/${bookId}`);
+  findById(bookId = 0) {
+    return api.get(`/library/${bookId}`);
+  }
+
+  findBySearch(term = "") {
+    return api.get(`/library/${term}`);
   }
 }
 

@@ -1,0 +1,48 @@
+.container-explore{
+    height: 50rem;
+
+    & > div > div:first-child {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.container-books{
+    max-height: 45rem;
+    overflow-y: overlay;
+    scrollbar-width: none;
+}
+
+.card-book{
+    width: 19rem;
+    height: 19rem;
+    background-color: transparent;
+}
+
+.card-book:hover > .none {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.none {
+    display: none;
+    text-decoration: none;
+    background-color: #00000050;
+    position: absolute;
+    color: #FFF;
+    font-size: 2rem;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.img-hover {
+    padding: 0px;
+    border: none;
+    box-shadow: #000 3px 4px 6px 2px;
+    cursor: pointer;
+}

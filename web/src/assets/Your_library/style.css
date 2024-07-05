@@ -1,0 +1,24 @@
+.container-books{
+    max-height: 45rem;
+    overflow-y: overlay;
+    scrollbar-width: none;
+}
+
+.container-explore{
+    height: 50rem;
+
+    & > div > div:first-child {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.label-modal{
+    width: 100%;
+    text-align: start;
+    margin-top: 1rem;
+}
+
+.label-modal-check{
+    width: 100%;
+    text-align: start;
+}

@@ -1,11 +1,11 @@
 import api from "./api/GoogleApiBooks";
 
 const API_KEY = import.meta.env.VITE_SOME_KEY || "";
-debugger;
 class GoogleApiDataService {
-  getDefaultBooks() {
+  getDefaultBooks(offset = 0) {
+    offset = Number(offset) ? `&startIndex=${offset}` : "";
     return api.get(
-      `/volumes?q=subject:Computers&orderBy=relevance&key=${API_KEY}`
+      `/volumes?q=subject:Drama&orderBy=relevance&maxResults=12${offset}&key=${API_KEY}`
     );
   }
 
@@ -13,12 +13,15 @@ class GoogleApiDataService {
     return api.get(
       `/volumes?q=subject:${encodeURIComponent(
         category
-      )}&orderBy=relevance&key=${API_KEY}`
+      )}&orderBy=relevance&maxResults=12${offset}&key=${API_KEY}`
     );
   }
 
-  findByTerm(term = "") {
-    return api.get(`/volumes?q=${term}&orderBy=relevance&key=${API_KEY}`);
+  findByTerm(term = "", offset = 0) {
+    offset = Number(offset) ? `&startIndex=${offset}` : "";
+    return api.get(
+      `/volumes?q=${term}&orderBy=relevance&maxResults=12${offset}&key=${API_KEY}`
+    );
   }
 }
 

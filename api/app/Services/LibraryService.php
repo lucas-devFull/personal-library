@@ -12,9 +12,13 @@ class LibraryService
     {
     }
 
-    public function all()
+    public function all($searchTerm)
     {
-        return $this->libraryRepository->all();
+        return $this->libraryRepository->all($searchTerm);
+    }
+
+    function count() {
+        return $this->libraryRepository->count();
     }
 
     public function create(array $data)

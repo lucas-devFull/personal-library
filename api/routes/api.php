@@ -9,4 +9,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+Route::post('/library/{id}', 'App\Http\Controllers\API\LibraryController@updateBook');
 Route::apiResource('/library', LibraryController::class);

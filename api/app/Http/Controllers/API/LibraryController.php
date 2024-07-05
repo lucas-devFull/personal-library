@@ -19,9 +19,10 @@ class LibraryController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $books = $this->libraryService->all();
+        $search = $request->input('search');
+        $books = $this->libraryService->all($search);
         return response()->json([
             'success' => true,
             'data' => $books,
@@ -35,11 +36,22 @@ class LibraryController extends Controller
      */
     public function store(Request $request)
     {
+        $image = "";
         $data = $request->validate([
-            'name' => 'required|string|max:144',
+            'title' => 'required|string|max:144',
+            'number_pages' => 'required|numeric',
             'status' => 'required|numeric',
+            'actual_page' => 'numeric',
+            'author' => 'string',
+            'publication_year' => 'numeric',
         ]);
 
+        if ($request->hasFile('image') && !is_null($request->file('image'))) {
+            $getImage = $request->file('image');
+            $image = base64_encode(file_get_contents($getImage));
+        }
+
+        $data['image'] = $image;
         $book = $this->libraryService->create($data);
         return response()->json([
             'success' => true,
@@ -64,13 +76,25 @@ class LibraryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function updateBook(Request $request, int $id)
     {
-         $data = $request->validate([
-            'name' => 'required|string|max:144',
-            'status' => 'required|numeric',
+
+        $image = "";
+        $data = $request->validate([
+            'title' => 'string|max:144',
+            'number_pages' => 'numeric',
+            'status' => 'numeric',
+            'actual_page' => 'numeric',
+            'author' => 'string',
+            'publication_year' => 'numeric',
         ]);
 
+        if ($request->hasFile('image') && !is_null($request->file('image'))) {
+            $getImage = $request->file('image');
+            $image = base64_encode(file_get_contents($getImage));
+        }
+
+        $data['image'] = $image;
         $book = $this->libraryService->update($data, $id);
         return response()->json([
             'success' => true,
